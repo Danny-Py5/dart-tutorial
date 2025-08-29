@@ -51,6 +51,8 @@ void main() {
    var busName = 'Toyota';
    console.log(busName);
 
+   var sss ;
+   print(sss);
 
 
 }
