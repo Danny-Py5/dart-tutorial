@@ -1,3 +1,5 @@
+import 'repeat.dart';
+
 class Console {
   void log(Object? value) {
     print("LOG: $value");
@@ -13,6 +15,9 @@ class Console {
 
   void error(Object? value) {
     print("? ERROR: $value");
+  }
+  void space() {
+    print(repeat(times: 10, value: '\n'));
   }
 }
 
