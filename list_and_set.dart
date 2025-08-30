@@ -23,4 +23,20 @@ void main() {
 	// get index of an item in the list 
 	print(scores[2]);
 
+
+
+
+	// set 
+	var names = {"Daniel", 'Kemisola', 'Sam'};
+	// set can not have duplicate elements
+	names.add('Daniel'); // no error but wont ass "Daniel" again 
+
+
+	// remove element in names 
+	names.remove('Sam');
+	print(names);
+
+	// removing non-exit element
+	print(names.remove('Blessing')); 
+
 }
