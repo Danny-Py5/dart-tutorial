@@ -23,11 +23,27 @@ void main() {
 	// get index of an item in the list 
 	print(scores[2]);
 
+	final List<String> nameList = ['Dan', 'Sam'];
+	nameList.add('Flourence');
+	print(nameList);
+
+
+
+	final List<int> numbers;
+	numbers = [3, 4, 5];
+	print(numbers);
+
+
 
 
 
 	// set 
-	var names = {"Daniel", 'Kemisola', 'Sam'};
+	var names = {"Daniel", 'Kemisola', 'Sam'}; // can contain any type same as 
+	Set<dynamic> _ = {1, '3', [33, 2]};
+
+
+	Set<String> nameSet= {}; // can only contain String elements;
+
 	// set can not have duplicate elements
 	names.add('Daniel'); // no error but wont ass "Daniel" again 
 
