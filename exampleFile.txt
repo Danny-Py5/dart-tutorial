@@ -1,0 +1,2 @@
+Hello world
+THis is an example txt file
