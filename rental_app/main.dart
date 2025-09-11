@@ -6,11 +6,21 @@ final console = Console();
 
 Future<void> main() async {
 
+	final itemsDB = ItemsDB();
+	// await itemsDB.saveItem({
+	// 	'name': 'Guitar',
+	// 	'price': 800,
+	// 	'range': '4-day',
+	// 	'id': '2',
+	// 	"isAvailable": true,
+	// });
+
 	final user = User('Daniel', 21, 'Geto ago-alaye odigbo local government ondo state Nigeria');
 	
 	final rental = Rental(user);
-	final details = await rental.rent('Keyboard');
+	final details = await rental.rent('Speaker', 7);
 	console.log(details);
+	console.log(await rental.getRentersAmount());
 
 }
 
@@ -18,14 +28,14 @@ Future<void> main() async {
 class Rental {
 
 	final itemsDB = ItemsDB();
-	// final items = itemsDB.getItems();
+	late final items = itemsDB.getItems();
 	User user; 
 
 
 	Rental(this.user);
 
 	Future<Map<String, dynamic>>? rent(String itemName, [int quantity = 1]) async {
-		for (Map<String, dynamic> item in await itemsDB.getItems()){
+		for (Map<String, dynamic> item in await items){
 			for (dynamic value in item.values){
 				String val = value.toString().toLowerCase();
 				if (val == itemName.toLowerCase()){
@@ -104,71 +114,80 @@ class Rental {
 		}
 		return id;
 	}
+
+	Future<void> printRenters() async {
+		final renters = await itemsDB.getRents();
+		for (final renter in renters) {
+			console.log(renter);
+			console.log('\n');
+		}
+	}
+	Future<int> getRentersAmount() async {
+		final renters = await itemsDB.getRents();
+		return renters.length;
+	}
 }
 
 class ItemsDB {
 
 	final rentersFIle = File('renters.txt');
-	final itemsDB = File('itemsDB.txt');
+	final itemsDbFile = File('itemsDbFile.txt');
 
 	Future<List<Map<String, dynamic>>> parseItems() async {
-		late List<Map<String, dynamic>> parsedData;
 		try {
-			if (await itemsDB.exists()){
-				final data = await itemsDB.readAsString();
-				List<Map<String, dynamic>> dataJson = convert.jsonDecode(data);
-				parsedData = dataJson;
+			if (await itemsDbFile.exists()){
+				final data = await itemsDbFile.readAsString();
+				final List<Map<String, dynamic>> dataJson = (convert.jsonDecode(data) as List).cast<Map<String, dynamic>>();
+				return dataJson;
 			} else {
-				return [{'none': 'none'}];
+				return [];
 			}
+		} catch (e) {
+			console.log('Error decoding JSON file: $e');;
+			return [];
+		}
+	}
+
+	Future<void> saveItem(Map<String, dynamic> item) async {
+		final existingItems = await getItems();
+		existingItems.add(item);
+		final encodedItems = convert.jsonEncode(existingItems);
+		try{
+			await itemsDbFile.writeAsString(encodedItems);
 		} catch (e) {
 			console.error(e);
 		}
-		console.log(parsedData);
-		return parsedData;
-	}
-
-	Future<void>? saveItem(Map<String, dynamic> item)  {
-		final parseItems = convert.jsonEncode(item);
 	}
 
 	Future<List<Map<String, dynamic>>> getItems() async {
 		final items = parseItems();
 		return items;
-	 	// return [
-	 	// 	{
-	 	// 		'name': 'Guitar',
-	 	// 		'price': 500,
-	 	// 		'range': '1-day',
-	 	// 		'id': '1',
-	 	// 		"isAvailable": true,
-	 	// 	}, 
-	 	// 	{
-	 	// 		'name': 'Keyboard',
-	 	// 		'price': 200,
-	 	// 		'range': '1-month',
-	 	// 		'id': '2',
-	 	// 		"isAvailable": true,
-	 	// 	}
-	 	// ];
 	}	
 
 	Future<void> saveRent(data) async {
-		final jsonData = convert.jsonEncode(data);
+		final availableRents = await getRents();
+		availableRents.add(data);
+		final jsonData = convert.jsonEncode(availableRents);
 
 		try{
-			if (!await rentersFIle.exists()){
-				await rentersFIle.writeAsString(jsonData);
-			} else {
-				await rentersFIle.writeAsString('\n', mode: FileMode.append);
-				await rentersFIle.writeAsString(jsonData, mode: FileMode.append);
-			}
+			await rentersFIle.writeAsString(jsonData); 
 		} catch (e) {
 			console.error(e);
 		}
 	}
-	Future<void> getRents() async {
-
+	Future<dynamic> getRents() async {
+		try {
+			if (await rentersFIle.exists()) {
+				final data = await rentersFIle.readAsString();
+				final jsonDecode = convert.jsonDecode(data);
+				return jsonDecode;
+			} else {
+				return [];
+			}
+		} catch (e) {
+			console.error(e);
+			return [];
+		}
 	}
 
 }
