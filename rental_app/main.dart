@@ -160,7 +160,7 @@ class ItemsDB {
 			if (!await rentersFIle.exists()){
 				await rentersFIle.writeAsString(jsonData);
 			} else {
-				await rentersFIle.writeAsString('\n\n', mode: FileMode.append);
+				await rentersFIle.writeAsString('\n', mode: FileMode.append);
 				await rentersFIle.writeAsString(jsonData, mode: FileMode.append);
 			}
 		} catch (e) {
