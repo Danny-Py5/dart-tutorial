@@ -18,13 +18,12 @@ Future<void> main() async {
 class Rental {
 
 	final itemsDB = ItemsDB();
+	// final items = itemsDB.getItems();
 	User user; 
 
+
 	Rental(this.user);
-	// final items = itemsDB.getItems();
 
-
-	 
 	Future<Map<String, dynamic>>? rent(String itemName, [int quantity = 1]) async {
 		for (Map<String, dynamic> item in await itemsDB.getItems()){
 			for (dynamic value in item.values){
@@ -40,7 +39,7 @@ class Rental {
 							'renter-info': user.getInfo(),
 							'returning-date': getReturningDate(item['range']),
 						};
-						itemsDB.saveToFIle(rentDetails);
+						itemsDB.saveRent(rentDetails);
 						return rentDetails;
 					 } else {
 					 	return {
@@ -53,7 +52,9 @@ class Rental {
 				} 
 			};
 		};
-		return {};
+		return {
+	 		'info': "We don't have $itemName in stock currently, check-in next time.",
+	 	};
 	}
 
 	static String getDate() {
@@ -107,12 +108,14 @@ class Rental {
 
 class ItemsDB {
 
+	final rentersFIle = File('renters.txt');
+	final itemsDB = File('itemsDB.txt');
+
 	Future<List<Map<String, dynamic>>> parseItems() async {
-		final file = File('itemsDB.txt');
 		late List<Map<String, dynamic>> parsedData;
 		try {
-			if (await file.exists()){
-				final data = await file.readAsString();
+			if (await itemsDB.exists()){
+				final data = await itemsDB.readAsString();
 				List<Map<String, dynamic>> dataJson = convert.jsonDecode(data);
 				parsedData = dataJson;
 			} else {
@@ -123,6 +126,10 @@ class ItemsDB {
 		}
 		console.log(parsedData);
 		return parsedData;
+	}
+
+	Future<void>? saveItem(Map<String, dynamic> item)  {
+		final parseItems = convert.jsonEncode(item);
 	}
 
 	Future<List<Map<String, dynamic>>> getItems() async {
@@ -146,20 +153,22 @@ class ItemsDB {
 	 	// ];
 	}	
 
-	Future<void> saveToFIle(data) async {
-		final file = File('renters.txt');
+	Future<void> saveRent(data) async {
 		final jsonData = convert.jsonEncode(data);
 
 		try{
-			if (!await file.exists()){
-				await file.writeAsString(jsonData);
+			if (!await rentersFIle.exists()){
+				await rentersFIle.writeAsString(jsonData);
 			} else {
-				await file.writeAsString('\n\n', mode: FileMode.append);
-				await file.writeAsString(jsonData, mode: FileMode.append);
+				await rentersFIle.writeAsString('\n\n', mode: FileMode.append);
+				await rentersFIle.writeAsString(jsonData, mode: FileMode.append);
 			}
 		} catch (e) {
 			console.error(e);
 		}
+	}
+	Future<void> getRents() async {
+
 	}
 
 }

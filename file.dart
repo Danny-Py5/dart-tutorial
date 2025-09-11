@@ -5,6 +5,8 @@ void main() async {
 
 	final fileContent = await read();
 	print(fileContent);
+
+	// print(DateTime.now().year);
 } 
 
 Future<void> write() async {
