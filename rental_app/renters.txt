@@ -1,0 +1,13 @@
+
+
+{"rent-status":"success","rent-date":"11/09/2025","quantity":1,"name":"Keyboard","price":200,"range":"1-day","id":"auppb0v&q8yn8odzeni#hnifvw0yb13qdknxtx37","isAvailable":true,"renter-info":{"name":"Daniel","age":21,"address":"Geto ago-alaye odigbo local government ondo state Nigeria"},"returning-date":"11/9/2025"}
+
+{"rent-status":"success","rent-date":"11/09/2025","quantity":1,"name":"Keyboard","price":200,"range":"1-day","id":"alt5d8o6hp#v19x8zfs582bebwab-a7iug17x3dn","isAvailable":true,"renter-info":{"name":"Daniel","age":21,"address":"Geto ago-alaye odigbo local government ondo state Nigeria"},"returning-date":"12/9/2025"}
+
+{"rent-status":"success","rent-date":"11/09/2025","quantity":1,"name":"Keyboard","price":200,"range":"1-day","id":"a7jbu-w68cmn6riq6ywew4xae2rtp#pnh0tfh2fq","isAvailable":true,"renter-info":{"name":"Daniel","age":21,"address":"Geto ago-alaye odigbo local government ondo state Nigeria"},"returning-date":"12/09/2025"}
+
+{"rent-status":"success","rent-date":"11/09/2025","quantity":1,"name":"Keyboard","price":200,"range":"1-month","id":"ab7swznplepu66czmdgm2i#4aa6x#ezd&zycke4a","isAvailable":true,"renter-info":{"name":"Daniel","age":21,"address":"Geto ago-alaye odigbo local government ondo state Nigeria"},"returning-date":"11/10/2025"}
+
+{"rent-status":"success","rent-date":"11/09/2025","quantity":1,"name":"Keyboard","price":200,"range":"1-month","id":"a5nwyy3ezrv-cfac58u82e54f8ifnmvbyb-ii6en","isAvailable":true,"renter-info":{"name":"Daniel","age":21,"address":"Geto ago-alaye odigbo local government ondo state Nigeria"},"returning-date":"11/10/2025"}
+
+{"rent-status":"success","rent-date":"11/09/2025","quantity":1,"name":"Keyboard","price":200,"range":"1-month","id":"a4gprgk8evh454oyvhmahmct5%axs2-5mt-xkjf&","isAvailable":true,"renter-info":{"name":"Daniel","age":21,"address":"Geto ago-alaye odigbo local government ondo state Nigeria"},"returning-date":"11/10/2025"}
